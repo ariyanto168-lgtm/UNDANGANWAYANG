@@ -1,0 +1,20 @@
+{
+  "name": "Jawa Wayangan Gold",
+  "short_name": "Wayangan Gold",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#11100E",
+  "theme_color": "#D4AF62",
+  "icons": [
+    {
+      "src": "Logoundanganwayang.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "Logoundanganwayang.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
