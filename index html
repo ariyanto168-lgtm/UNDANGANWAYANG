@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Jawa Wayangan Gold — Pawiwahan Adat Jawa</title>
     
+    <!-- PWA & Mobile Meta Tags -->
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#11100E">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -32,9 +38,10 @@
         }
     </script>
     
-    <!-- FontAwesome & Google Fonts -->
+    <!-- FontAwesome, Google Fonts, & QR Code Library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     
     <style>
         body {
@@ -64,7 +71,6 @@
         .parang-pattern {
             background-image: repeating-linear-gradient(45deg, rgba(212,175,98,0.1) 0, rgba(212,175,98,0.1) 10px, transparent 0, transparent 20px);
         }
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #11100E; }
         ::-webkit-scrollbar-thumb { background: #D4AF62; border-radius: 3px; }
@@ -72,16 +78,15 @@
 </head>
 <body class="bg-palaceBlack min-h-screen text-inkBrown relative flex flex-col items-center">
 
-    <!-- BACKGROUND WATERMARK / BATIK -->
+    <!-- BACKGROUND WATERMARK -->
     <div class="fixed inset-0 batik-pattern pointer-events-none z-0"></div>
 
-    <!-- AUDIO PLAYER (Gamelan Instrumental) -->
+    <!-- AUDIO PLAYER -->
     <audio id="bgMusic" loop>
         <source src="https://actions.google.com/sounds/v1/ambiences/asian_market.ogg" type="audio/ogg">
-        Your browser does not support the audio element.
     </audio>
 
-    <!-- FLOATING MUSIC & AUTO-SCROLL CONTROL WIDGET -->
+    <!-- FLOATING CONTROLS -->
     <div id="floatingControls" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2.5 hidden">
         <button id="musicToggleBtn" onclick="toggleMusic()" class="w-12 h-12 rounded-full gold-gradient-bg text-palaceBlack flex items-center justify-center shadow-lg hover:scale-110 transition border-2 border-goldLight" title="Musik Gamelan">
             <i id="musicIcon" class="fa-solid fa-music text-lg animate-pulse"></i>
@@ -94,20 +99,16 @@
         </button>
     </div>
 
-    <!-- MAIN APP CONTAINER (MAX WIDTH MOBILE FRIENDLY) -->
+    <!-- MAIN APP CONTAINER -->
     <main class="w-full max-w-md bg-parchment min-h-screen relative shadow-2xl flex flex-col z-10 overflow-hidden">
 
-        <!-- ========================================== -->
-        <!-- COVER PEMBUKA UNDANGAN -->
-        <!-- ========================================== -->
+        <!-- COVER PEMBUKA -->
         <section id="coverSection" class="absolute inset-0 z-40 bg-palaceBlack text-parchment flex flex-col justify-between p-6 text-center transition-all duration-700 overflow-y-auto">
-            <!-- Bingkai Ukiran Gebyok Atas -->
             <div class="absolute top-0 left-0 right-0 h-16 border-b-2 border-goldPrimary flex items-center justify-center parang-pattern">
                 <span class="text-goldPrimary text-xs tracking-widest uppercase font-serif">✦ Pawiwahan Adat Jawa ✦</span>
             </div>
 
             <div class="my-auto pt-16 pb-8 space-y-6 flex flex-col items-center">
-                <!-- Ornamen Gunungan Mini -->
                 <div class="w-16 h-20 gold-gradient-bg flex items-center justify-center rounded-t-full shadow-lg border border-goldLight animate-bounce">
                     <i class="fa-solid fa-feather text-palaceBlack text-2xl"></i>
                 </div>
@@ -117,7 +118,6 @@
                     <h1 class="text-3xl font-serif font-bold gold-gradient-text">Jawa Wayangan Gold</h1>
                 </div>
 
-                <!-- Ilustrasi Wayang Pengantin (Siluet / Artwork Klasik) -->
                 <div class="w-48 h-56 gebyok-border rounded-2xl bg-charcoal flex flex-col items-center justify-center relative overflow-hidden shadow-2xl my-4">
                     <div class="absolute inset-0 bg-gradient-to-t from-palaceBlack via-transparent to-transparent opacity-80"></div>
                     <i class="fa-solid fa-chess-queen text-goldPrimary text-6xl mb-2 relative z-10"></i>
@@ -139,430 +139,187 @@
                 </button>
             </div>
 
-            <!-- Footer Cover -->
             <div class="text-[10px] text-goldLight/60 font-serif tracking-widest pb-2">
                 PAWIWAHAN AGUNG • JAWA WAYANGAN GOLD
             </div>
         </section>
 
-        <!-- ========================================== -->
-        <!-- KONTEN UTAMA UNDANGAN (ISI) -->
-        <!-- ========================================== -->
+        <!-- ISI UNDANGAN -->
         <div id="invitationContent" class="opacity-0 transition-opacity duration-1000 flex flex-col flex-grow">
 
-            <!-- HEADER / HERO SECTION -->
+            <!-- HERO SECTION -->
             <header class="relative py-12 px-6 text-center bg-charcoal text-parchment border-b-4 border-goldPrimary">
-                <div class="absolute top-2 left-2 text-goldPrimary/30 text-2xl"><i class="fa-solid fa-sun"></i></div>
-                <div class="absolute top-2 right-2 text-goldPrimary/30 text-2xl"><i class="fa-solid fa-sun"></i></div>
                 <p class="text-goldLight text-xs tracking-[0.25em] uppercase font-serif mb-1">Pawiwahan Adat Jawa</p>
                 <h2 id="mainTitleNames" class="text-3xl font-serif font-bold gold-gradient-text my-2">Dimas & Dewi</h2>
                 <p id="mainDateDisplay" class="text-xs text-parchment/90 font-medium">Minggu, 15 November 2026</p>
             </header>
 
-            <!-- BAGIAN 1 — SALAM PEMBUKA -->
+            <!-- SALAM PEMBUKA -->
             <section class="py-10 px-6 text-center space-y-4 border-b border-goldPrimary/30 bg-creamLight">
-                <div class="w-10 h-10 mx-auto text-goldAntique text-xl"><i class="fa-solid fa-feather-pointed"></i></div>
                 <h3 class="font-serif font-bold text-lg text-inkBrown">Assalamu’alaikum Warahmatullahi Wabarakatuh</h3>
                 <p class="text-xs text-inkBrown/80 leading-relaxed">
-                    Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta'ala, kami sekeluarga bermaksud menyelenggarakan pernikahan putra-putri kami:
+                    Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta'ala, kami sekeluarga bermaksud menyelenggarakan pernikahan putra-putri kami.
                 </p>
-                <div class="text-xs italic text-goldAntique font-serif">
-                    "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu istri-istri dari jenismu sendiri, supaya kamu cenderung dan merasa tentram kepadanya..." (QS. Ar-Rum: 21)
-                </div>
             </section>
 
-            <!-- BAGIAN 2 — PROFIL MEMPELAI -->
+            <!-- PROFIL MEMPELAI -->
             <section class="py-12 px-6 text-center space-y-8 bg-parchment border-b border-goldPrimary/30">
                 <h2 class="text-2xl font-serif font-bold gold-gradient-text">Mempelai Berbahagia</h2>
-                
-                <!-- Mempelai Pria -->
-                <div class="gebyok-border p-6 rounded-2xl bg-creamLight shadow-md space-y-3 relative overflow-hidden">
-                    <div class="w-28 h-28 mx-auto rounded-full p-1 gold-gradient-bg shadow-lg">
-                        <img id="groomPhoto" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300" alt="Groom" class="w-full h-full object-cover rounded-full">
-                    </div>
+                <div class="gebyok-border p-6 rounded-2xl bg-creamLight shadow-md space-y-3">
                     <h3 id="groomFullName" class="font-serif font-bold text-xl text-inkBrown">Raden Dimas Prayoga, S.T.</h3>
-                    <p class="text-xs text-inkBrown/80">Putra tercinta dari:<br><strong id="groomParents">Bapak H. Suryo Kusumo & Ibu Hj. Lestari</strong></p>
-                    <a id="groomIG" href="#" target="_blank" class="inline-block text-xs text-goldAntique font-semibold hover:underline"><i class="fa-brands fa-instagram mr-1"></i> @dimas.prayoga</a>
+                    <p id="groomParents" class="text-xs text-inkBrown/80">Putra dari Bapak H. Suryo Kusumo & Ibu Hj. Lestari</p>
                 </div>
-
                 <div class="text-3xl font-serif text-goldAntique font-bold">&</div>
-
-                <!-- Mempelai Wanita -->
-                <div class="gebyok-border p-6 rounded-2xl bg-creamLight shadow-md space-y-3 relative overflow-hidden">
-                    <div class="w-28 h-28 mx-auto rounded-full p-1 gold-gradient-bg shadow-lg">
-                        <img id="bridePhoto" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300" alt="Bride" class="w-full h-full object-cover rounded-full">
-                    </div>
+                <div class="gebyok-border p-6 rounded-2xl bg-creamLight shadow-md space-y-3">
                     <h3 id="brideFullName" class="font-serif font-bold text-xl text-inkBrown">Nyai Roro Dewi Sekar Kencana, S.Pd.</h3>
-                    <p class="text-xs text-inkBrown/80">Putri tercinta dari:<br><strong id="brideParents">Bapak KRT. Broto Diningrat & Ibu Rr. Sulasmi</strong></p>
-                    <a id="brideIG" href="#" target="_blank" class="inline-block text-xs text-goldAntique font-semibold hover:underline"><i class="fa-brands fa-instagram mr-1"></i> @dewi.sekarkencana</a>
+                    <p id="brideParents" class="text-xs text-inkBrown/80">Putri dari Bapak KRT. Broto Diningrat & Ibu Rr. Sulasmi</p>
                 </div>
             </section>
 
-            <!-- BAGIAN 3 — HITUNG MUNDUR (COUNTDOWN) -->
+            <!-- HITUNG MUNDUR -->
             <section class="py-10 px-6 text-center bg-charcoal text-parchment space-y-6">
                 <h3 class="font-serif font-bold text-lg gold-gradient-text">Menuju Hari Bahagia</h3>
                 <div class="grid grid-cols-4 gap-3 max-w-xs mx-auto">
-                    <div class="gebyok-border p-3 rounded-xl bg-palaceBlack">
-                        <span id="days" class="text-2xl font-bold font-serif text-goldLight">00</span>
-                        <p class="text-[10px] uppercase text-parchment/70">Hari</p>
-                    </div>
-                    <div class="gebyok-border p-3 rounded-xl bg-palaceBlack">
-                        <span id="hours" class="text-2xl font-bold font-serif text-goldLight">00</span>
-                        <p class="text-[10px] uppercase text-parchment/70">Jam</p>
-                    </div>
-                    <div class="gebyok-border p-3 rounded-xl bg-palaceBlack">
-                        <span id="minutes" class="text-2xl font-bold font-serif text-goldLight">00</span>
-                        <p class="text-[10px] uppercase text-parchment/70">Menit</p>
-                    </div>
-                    <div class="gebyok-border p-3 rounded-xl bg-palaceBlack">
-                        <span id="seconds" class="text-2xl font-bold font-serif text-goldLight">00</span>
-                        <p class="text-[10px] uppercase text-parchment/70">Detik</p>
-                    </div>
+                    <div class="gebyok-border p-3 rounded-xl bg-palaceBlack"><span id="days" class="text-2xl font-bold font-serif text-goldLight">00</span><p class="text-[10px] uppercase">Hari</p></div>
+                    <div class="gebyok-border p-3 rounded-xl bg-palaceBlack"><span id="hours" class="text-2xl font-bold font-serif text-goldLight">00</span><p class="text-[10px] uppercase">Jam</p></div>
+                    <div class="gebyok-border p-3 rounded-xl bg-palaceBlack"><span id="minutes" class="text-2xl font-bold font-serif text-goldLight">00</span><p class="text-[10px] uppercase">Menit</p></div>
+                    <div class="gebyok-border p-3 rounded-xl bg-palaceBlack"><span id="seconds" class="text-2xl font-bold font-serif text-goldLight">00</span><p class="text-[10px] uppercase">Detik</p></div>
                 </div>
-                <div>
-                    <button onclick="addToCalendar()" class="bg-goldAntique hover:bg-goldPrimary text-palaceBlack text-xs font-bold py-2.5 px-5 rounded-xl shadow transition">
-                        <i class="fa-regular fa-calendar-plus mr-2"></i> Tambah ke Kalender
-                    </button>
-                </div>
+                <button onclick="addToCalendar()" class="bg-goldAntique text-palaceBlack text-xs font-bold py-2.5 px-5 rounded-xl shadow">Tambah ke Kalender</button>
             </section>
 
-            <!-- BAGIAN 4 & 5 — AKAD NIKAH & RESEPSI -->
+            <!-- AKAD & RESEPSI -->
             <section class="py-12 px-6 space-y-8 bg-parchment border-b border-goldPrimary/30">
                 <h2 class="text-2xl font-serif font-bold text-center gold-gradient-text">Rangkaian Acara</h2>
-
-                <!-- Akad Nikah -->
-                <div class="gebyok-border bg-creamLight p-6 rounded-2xl shadow space-y-4 relative">
-                    <div class="absolute -top-3 left-6 gold-gradient-bg text-palaceBlack px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
-                        Akad Nikah
-                    </div>
-                    <div class="flex items-start gap-4 pt-2">
-                        <div class="w-10 h-10 rounded-xl bg-goldAntique/20 text-goldAntique flex items-center justify-center shrink-0 text-lg">
-                            <i class="fa-regular fa-calendar"></i>
-                        </div>
-                        <div>
-                            <h4 id="akadDay" class="font-bold text-sm text-inkBrown">Minggu, 15 November 2026</h4>
-                            <p id="akadTime" class="text-xs text-inkBrown/80">Pukul 08.00 WIB s.d. Selesai</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-4">
-                        <div class="w-10 h-10 rounded-xl bg-goldAntique/20 text-goldAntique flex items-center justify-center shrink-0 text-lg">
-                            <i class="fa-solid fa-location-dot"></i>
-                        </div>
-                        <div>
-                            <h4 id="akadLocation" class="font-bold text-sm text-inkBrown">Pendopo Agung Keraton</h4>
-                            <p id="akadAddress" class="text-xs text-inkBrown/80">Jl. Pariwisata Budaya No. 1, Semarang, Jawa Tengah</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Resepsi -->
-                <div class="gebyok-border bg-creamLight p-6 rounded-2xl shadow space-y-4 relative">
-                    <div class="absolute -top-3 left-6 gold-gradient-bg text-palaceBlack px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
-                        Resepsi Pernikahan
-                    </div>
-                    <div class="flex items-start gap-4 pt-2">
-                        <div class="w-10 h-10 rounded-xl bg-goldAntique/20 text-goldAntique flex items-center justify-center shrink-0 text-lg">
-                            <i class="fa-regular fa-calendar"></i>
-                        </div>
-                        <div>
-                            <h4 id="resepsiDay" class="font-bold text-sm text-inkBrown">Minggu, 15 November 2026</h4>
-                            <p id="resepsiTime" class="text-xs text-inkBrown/80">Pukul 11.00 - 14.00 WIB</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-4">
-                        <div class="w-10 h-10 rounded-xl bg-goldAntique/20 text-goldAntique flex items-center justify-center shrink-0 text-lg">
-                            <i class="fa-solid fa-location-dot"></i>
-                        </div>
-                        <div>
-                            <h4 id="resepsiLocation" class="font-bold text-sm text-inkBrown">Pendopo Agung Keraton</h4>
-                            <p id="resepsiAddress" class="text-xs text-inkBrown/80">Jl. Pariwisata Budaya No. 1, Semarang, Jawa Tengah</p>
-                        </div>
-                    </div>
+                <div class="gebyok-border bg-creamLight p-6 rounded-2xl space-y-2">
+                    <h4 class="font-bold text-sm text-inkBrown">Akad & Resepsi</h4>
+                    <p id="eventDateDisplay" class="text-xs text-inkBrown/80">Minggu, 15 November 2026 (08.00 WIB)</p>
+                    <p id="eventLocationDisplay" class="text-xs text-inkBrown/80">Pendopo Agung Keraton, Semarang</p>
                 </div>
             </section>
 
-            <!-- BAGIAN 6 — LOKASI & PETA -->
-            <section class="py-10 px-6 text-center bg-charcoal text-parchment space-y-4">
-                <h3 class="font-serif font-bold text-lg gold-gradient-text">Peta Lokasi Acara</h3>
-                <p class="text-xs text-parchment/80">Gunakan tautan di bawah untuk navigasi langsung menuju lokasi.</p>
-                <div class="w-full h-48 rounded-2xl overflow-hidden gebyok-border bg-palaceBlack relative">
-                    <iframe id="mapIframe" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" src="https://maps.google.com/maps?q=Semarang&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
-                </div>
-                <a id="mapLinkBtn" href="https://maps.google.com/?q=Semarang" target="_blank" class="inline-block w-full max-w-xs gold-gradient-bg text-palaceBlack font-bold py-3 rounded-xl text-xs uppercase shadow transition hover:scale-105">
-                    <i class="fa-solid fa-map-location-dot mr-2"></i> Buka Google Maps
-                </a>
-            </section>
-
-            <!-- BAGIAN 7 — KISAH CINTA (TIMELINE) -->
-            <section class="py-12 px-6 bg-parchment border-b border-goldPrimary/30 space-y-8">
-                <h2 class="text-2xl font-serif font-bold text-center gold-gradient-text">Kisah Cinta Kami</h2>
-                <div class="space-y-6 border-l-2 border-goldAntique ml-4 pl-6 relative">
-                    <div class="relative space-y-1">
-                        <div class="absolute -left-[31px] top-0 w-4 h-4 rounded-full gold-gradient-bg border-2 border-palaceBlack"></div>
-                        <span class="text-[10px] bg-goldAntique text-parchment px-2 py-0.5 rounded-full font-bold">2021</span>
-                        <h4 class="font-bold text-sm text-inkBrown">Pertemuan Pertama</h4>
-                        <p class="text-xs text-inkBrown/80">Bertemu di sebuah acara pameran budaya dan kesenian tradisional Jawa di Semarang.</p>
-                    </div>
-                    <div class="relative space-y-1">
-                        <div class="absolute -left-[31px] top-0 w-4 h-4 rounded-full gold-gradient-bg border-2 border-palaceBlack"></div>
-                        <span class="text-[10px] bg-goldAntique text-parchment px-2 py-0.5 rounded-full font-bold">2023</span>
-                        <h4 class="font-bold text-sm text-inkBrown">Mulai Menjalin Kasih</h4>
-                        <p class="text-xs text-inkBrown/80">Menyatukan visi dan komitmen untuk melangkah ke jenjang yang lebih serius.</p>
-                    </div>
-                    <div class="relative space-y-1">
-                        <div class="absolute -left-[31px] top-0 w-4 h-4 rounded-full gold-gradient-bg border-2 border-palaceBlack"></div>
-                        <span class="text-[10px] bg-goldAntique text-parchment px-2 py-0.5 rounded-full font-bold">2026</span>
-                        <h4 class="font-bold text-sm text-inkBrown">Lamaran & Pernikahan Agung</h4>
-                        <p class="text-xs text-inkBrown/80">Acara lamaran resmi keluarga besar dan dilanjutkan hari suci pernikahan kami.</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- BAGIAN 8 — GALERI FOTO -->
-            <section class="py-12 px-6 bg-creamLight border-b border-goldPrimary/30 space-y-6">
-                <h2 class="text-2xl font-serif font-bold text-center gold-gradient-text">Galeri Kenangan</h2>
-                <div class="grid grid-cols-2 gap-3">
-                    <div onclick="openLightbox(this)" class="gebyok-border rounded-xl overflow-hidden aspect-square cursor-pointer hover:opacity-90 transition">
-                        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=400" class="w-full h-full object-cover">
-                    </div>
-                    <div onclick="openLightbox(this)" class="gebyok-border rounded-xl overflow-hidden aspect-square cursor-pointer hover:opacity-90 transition">
-                        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400" class="w-full h-full object-cover">
-                    </div>
-                    <div onclick="openLightbox(this)" class="gebyok-border rounded-xl overflow-hidden aspect-square cursor-pointer hover:opacity-90 transition">
-                        <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=400" class="w-full h-full object-cover">
-                    </div>
-                    <div onclick="openLightbox(this)" class="gebyok-border rounded-xl overflow-hidden aspect-square cursor-pointer hover:opacity-90 transition">
-                        <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=400" class="w-full h-full object-cover">
-                    </div>
-                </div>
-            </section>
-
-            <!-- Lightbox Modal -->
-            <div id="lightboxModal" class="fixed inset-0 z-50 bg-palaceBlack/90 hidden items-center justify-center p-4">
-                <button onclick="closeLightbox()" class="absolute top-4 right-4 text-parchment text-2xl font-bold"><i class="fa-solid fa-xmark"></i></button>
-                <img id="lightboxImg" src="" class="max-w-full max-h-[80vh] rounded-2xl gebyok-border">
-            </div>
-
-            <!-- BAGIAN 9 — RSVP KEHADIRAN -->
+            <!-- RSVP & BUKU TAMU -->
             <section class="py-12 px-6 bg-parchment border-b border-goldPrimary/30 space-y-6">
-                <h2 class="text-2xl font-serif font-bold text-center gold-gradient-text">Konfirmasi Kehadiran (RSVP)</h2>
-                <form id="rsvpForm" onsubmit="submitRSVP(event)" class="gebyok-border bg-creamLight p-6 rounded-2xl space-y-4 shadow">
-                    <div>
-                        <label class="block text-xs font-bold text-inkBrown mb-1">Nama Lengkap Tamu</label>
-                        <input type="text" id="rsvpName" required placeholder="Masukkan nama Anda..." class="w-full p-3 rounded-xl border border-goldAntique/50 bg-parchment text-xs text-inkBrown focus:outline-none focus:border-goldPrimary">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-inkBrown mb-1">Status Kehadiran</label>
-                        <select id="rsvpStatus" class="w-full p-3 rounded-xl border border-goldAntique/50 bg-parchment text-xs text-inkBrown focus:outline-none focus:border-goldPrimary">
-                            <option value="Hadir">Hadir (Menyaksikan Langsung)</option>
-                            <option value="Tidak Hadir">Berhalangan Hadir</option>
-                            <option value="Masih Ragu">Masih Ragu-ragu</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-inkBrown mb-1">Jumlah Tamu</label>
-                        <select id="rsvpCount" class="w-full p-3 rounded-xl border border-goldAntique/50 bg-parchment text-xs text-inkBrown focus:outline-none focus:border-goldPrimary">
-                            <option value="1 Orang">1 Orang</option>
-                            <option value="2 Orang">2 Orang</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-inkBrown mb-1">Pesan / Doa Restu</label>
-                        <textarea id="rsvpMessage" rows="3" placeholder="Tuliskan pesan atau doa untuk mempelai..." class="w-full p-3 rounded-xl border border-goldAntique/50 bg-parchment text-xs text-inkBrown focus:outline-none focus:border-goldPrimary"></textarea>
-                    </div>
-                    <button type="submit" class="w-full gold-gradient-bg text-palaceBlack font-bold py-3 rounded-xl text-xs uppercase shadow transition hover:scale-105">
-                        Kirim Konfirmasi RSVP
-                    </button>
+                <h2 class="text-2xl font-serif font-bold text-center gold-gradient-text">Konfirmasi Kehadiran & Ucapan</h2>
+                <form id="rsvpForm" onsubmit="submitRSVP(event)" class="gebyok-border bg-creamLight p-6 rounded-2xl space-y-4">
+                    <input type="text" id="rsvpName" required placeholder="Nama Tamu..." class="w-full p-3 rounded-xl border border-goldAntique bg-parchment text-xs">
+                    <select id="rsvpStatus" class="w-full p-3 rounded-xl border border-goldAntique bg-parchment text-xs">
+                        <option value="Hadir">Hadir</option>
+                        <option value="Tidak Hadir">Tidak Hadir</option>
+                    </select>
+                    <textarea id="rsvpMessage" rows="3" placeholder="Tuliskan ucapan atau doa..." class="w-full p-3 rounded-xl border border-goldAntique bg-parchment text-xs"></textarea>
+                    <button type="submit" class="w-full gold-gradient-bg text-palaceBlack font-bold py-3 rounded-xl text-xs uppercase shadow">Kirim RSVP & Ucapan</button>
                 </form>
             </section>
 
-            <!-- BAGIAN 10 — BUKU TAMU & UCAPAN -->
-            <section class="py-12 px-6 bg-charcoal text-parchment space-y-6">
-                <h2 class="text-2xl font-serif font-bold text-center gold-gradient-text">Buku Tamu & Ucapan</h2>
-                <div id="guestbookList" class="space-y-4 max-h-80 overflow-y-auto pr-1">
-                    <!-- Dinamis Diisi Script -->
-                    <div class="gebyok-border bg-palaceBlack p-4 rounded-xl space-y-1">
-                        <div class="flex justify-between items-center text-[10px] text-goldLight/70">
-                            <strong>Kanjeng Raden Mas</strong>
-                            <span>Hari ini</span>
-                        </div>
-                        <p class="text-xs text-parchment">Selamat menempuh hidup baru, semoga menjadi keluarga yang sakinah, mawaddah, warahmah.</p>
-                    </div>
-                </div>
+            <!-- QR CODE TAMU -->
+            <section class="py-12 px-6 bg-creamLight text-center space-y-4 border-b border-goldPrimary/30">
+                <h3 class="font-serif font-bold text-lg gold-gradient-text text-inkBrown">QR Code Buku Tamu</h3>
+                <div id="qrcode" class="mx-auto w-32 h-32 bg-white p-2 gebyok-border rounded-xl flex items-center justify-center"></div>
+                <p class="text-xs text-inkBrown/80">Tunjukkan QR Code ini kepada penerima tamu saat hadir di lokasi.</p>
             </section>
 
-            <!-- BAGIAN 11 — HADIAH PERNIKAHAN -->
-            <section class="py-12 px-6 bg-parchment border-b border-goldPrimary/30 space-y-6 text-center">
-                <h2 class="text-2xl font-serif font-bold gold-gradient-text">Tanda Kasih & Hadiah</h2>
-                <p class="text-xs text-inkBrown/80 max-w-xs mx-auto">Doa restu Anda adalah karunia terindah bagi kami. Namun jika Anda ingin memberikan tanda kasih, dapat melalui:</p>
-                
-                <div class="gebyok-border bg-creamLight p-6 rounded-2xl max-w-sm mx-auto space-y-4 shadow">
-                    <div class="w-12 h-12 mx-auto gold-gradient-bg text-palaceBlack rounded-xl flex items-center justify-center font-bold text-lg">
-                        BCA
-                    </div>
-                    <h4 class="font-serif font-bold text-inkName text-sm">Bank Central Asia (BCA)</h4>
-                    <p id="bankAccNum" class="text-lg font-mono font-bold text-goldAntique">1234567890</p>
-                    <p class="text-xs text-inkBrown">a.n. Raden Dimas Prayoga</p>
-                    <button onclick="copyBankAccount()" class="bg-goldAntique text-palaceBlack text-xs font-bold py-2 px-4 rounded-xl shadow hover:bg-goldPrimary transition">
-                        <i class="fa-regular fa-copy mr-1"></i> Salin Nomor Rekening
-                    </button>
-                </div>
+            <!-- HADIAH -->
+            <section class="py-12 px-6 bg-parchment border-b border-goldPrimary/30 space-y-4 text-center">
+                <h2 class="text-2xl font-serif font-bold gold-gradient-text">Tanda Kasih</h2>
+                <p id="bankDisplay" class="text-lg font-mono font-bold text-goldAntique">BCA: 1234567890 (a.n. Dimas)</p>
+                <button onclick="copyBankAccount()" class="bg-goldAntique text-palaceBlack text-xs font-bold py-2 px-4 rounded-xl">Salin Rekening</button>
             </section>
 
-            <!-- BAGIAN 12 — PENUTUP & BERBAGI UNDANGAN -->
-            <section class="py-14 px-6 text-center bg-palaceBlack text-parchment space-y-6 relative overflow-hidden">
-                <div class="w-20 h-24 mx-auto gold-gradient-bg flex items-center justify-center rounded-t-full shadow-lg border border-goldLight">
-                    <i class="fa-solid fa-hands-praying text-palaceBlack text-3xl"></i>
-                </div>
-                <h3 class="font-serif font-bold text-xl gold-gradient-text">Nuwun Matur Nuwun</h3>
-                <p class="text-xs text-parchment/80 max-w-xs mx-auto leading-relaxed">
-                    Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir memberikan doa restu.
-                </p>
-                <div class="pt-4 space-y-3">
-                    <h4 class="font-serif font-bold text-goldLight">Kami yang berbahagia:</h4>
-                    <p class="font-serif text-lg gold-gradient-text font-bold">Dimas & Dewi</p>
-                </div>
-                
-                <div class="pt-6">
-                    <button onclick="shareInvitationWhatsApp()" class="w-full max-w-xs bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition flex items-center justify-center gap-2 text-xs uppercase">
-                        <i class="fa-brands fa-whatsapp text-base"></i> Bagikan Undangan
-                    </button>
-                </div>
+            <!-- PENUTUP -->
+            <section class="py-14 px-6 text-center bg-palaceBlack text-parchment space-y-6">
+                <h3 class="font-serif font-bold text-xl gold-gradient-text">Matur Nuwun</h3>
+                <button onclick="shareWhatsApp()" class="w-full max-w-xs bg-emerald-600 text-white font-bold py-3 rounded-xl text-xs uppercase">Bagikan Undangan</button>
             </section>
 
-        </div> <!-- End of invitationContent -->
-
+        </div>
     </main>
 
-    <!-- ========================================== -->
-    <!-- PANEL EDITOR MODAL (EDITOR LENGKAP) -->
-    <!-- ========================================== -->
+    <!-- PANEL EDITOR -->
     <div id="editorModal" class="fixed inset-0 z-50 bg-palaceBlack/90 hidden items-center justify-center p-4 overflow-y-auto">
-        <div class="bg-parchment w-full max-w-md rounded-2xl gebyok-border p-6 space-y-4 my-auto relative text-inkBrown">
-            <div class="flex justify-between items-center border-b border-goldAntique/30 pb-3">
-                <h3 class="font-serif font-bold text-base gold-gradient-text">Panel Editor — Jawa Wayangan Gold</h3>
-                <button onclick="closeEditorModal()" class="text-inkBrown font-bold text-lg"><i class="fa-solid fa-xmark"></i></button>
+        <div class="bg-parchment w-full max-w-md rounded-2xl gebyok-border p-6 space-y-4 my-auto text-inkBrown">
+            <h3 class="font-serif font-bold text-base gold-gradient-text">Panel Editor Proyek</h3>
+            <div class="space-y-3 text-xs max-h-[60vh] overflow-y-auto pr-2">
+                <input type="text" id="editProjectId" class="w-full p-2.5 rounded-lg border border-goldAntique bg-white" placeholder="ID Proyek (unik, misal: dimas_dewi)">
+                <input type="text" id="editGroom" class="w-full p-2.5 rounded-lg border border-goldAntique bg-white" placeholder="Nama Mempelai Pria">
+                <input type="text" id="editBride" class="w-full p-2.5 rounded-lg border border-goldAntique bg-white" placeholder="Nama Mempelai Wanita">
+                <input type="text" id="editDate" class="w-full p-2.5 rounded-lg border border-goldAntique bg-white" placeholder="Tanggal Acara">
+                <input type="text" id="editLocation" class="w-full p-2.5 rounded-lg border border-goldAntique bg-white" placeholder="Lokasi">
+                <input type="text" id="editBank" class="w-full p-2.5 rounded-lg border border-goldAntique bg-white" placeholder="Nomor Rekening">
+                <input type="text" id="editScriptUrl" class="w-full p-2.5 rounded-lg border border-goldAntique bg-white" placeholder="Google Apps Script Web App URL">
             </div>
-            
-            <div class="space-y-3 max-h-[65vh] overflow-y-auto pr-2 text-xs">
-                <div>
-                    <label class="font-bold block mb-1">Nama Mempelai Pria</label>
-                    <input type="text" id="editGroom" class="w-full p-2.5 rounded-lg border border-goldAntique bg-white" value="Raden Dimas Prayoga, S.T.">
-                </div>
-                <div>
-                    <label class="font-bold block mb-1">Nama Mempelai Wanita</label>
-                    <input type="text" id="editBride" class="w-full p-2.5 rounded-lg border border-goldAntique bg-white" value="Nyai Roro Dewi Sekar Kencana, S.Pd.">
-                </div>
-                <div>
-                    <label class="font-bold block mb-1">Tanggal Acara</label>
-                    <input type="text" id="editDate" class="w-full p-2.5 rounded-lg border border-goldAntique bg-white" value="Minggu, 15 November 2026">
-                </div>
-                <div>
-                    <label class="font-bold block mb-1">Waktu Akad & Resepsi</label>
-                    <input type="text" id="editTime" class="w-full p-2.5 rounded-lg border border-goldAntique bg-white" value="08.00 WIB s.d. Selesai">
-                </div>
-                <div>
-                    <label class="font-bold block mb-1">Nama Gedung / Tempat</label>
-                    <input type="text" id="editLocation" class="w-full p-2.5 rounded-lg border border-goldAntique bg-white" value="Pendopo Agung Keraton">
-                </div>
-                <div>
-                    <label class="font-bold block mb-1">Alamat Lengkap</label>
-                    <textarea id="editAddress" rows="2" class="w-full p-2.5 rounded-lg border border-goldAntique bg-white">Jl. Pariwisata Budaya No. 1, Semarang, Jawa Tengah</textarea>
-                </div>
-                <div>
-                    <label class="font-bold block mb-1">Nomor Rekening Hadiah (BCA)</label>
-                    <input type="text" id="editBank" class="w-full p-2.5 rounded-lg border border-goldAntique bg-white" value="1234567890">
-                </div>
-                <div>
-                    <label class="font-bold block mb-1">Google Apps Script Web App URL (Backend Google Sheets)</label>
-                    <input type="text" id="editScriptUrl" class="w-full p-2.5 rounded-lg border border-goldAntique bg-white" placeholder="https://script.google.com/macros/s/.../exec">
-                </div>
-            </div>
-
-            <div class="pt-3 border-t border-goldAntique/30 flex gap-2">
-                <button onclick="saveEditorData()" class="w-full gold-gradient-bg text-palaceBlack font-bold py-2.5 rounded-xl uppercase shadow transition">Simpan & Perbarui</button>
-                <button onclick="closeEditorModal()" class="w-full bg-charcoal text-parchment font-bold py-2.5 rounded-xl uppercase shadow transition">Tutup</button>
+            <div class="flex gap-2">
+                <button onclick="saveProjectToCloud()" class="w-full gold-gradient-bg text-palaceBlack font-bold py-2.5 rounded-xl uppercase">Simpan ke Google Sheets</button>
+                <button onclick="closeEditorModal()" class="w-full bg-charcoal text-parchment font-bold py-2.5 rounded-xl uppercase">Tutup</button>
             </div>
         </div>
     </div>
 
-    <!-- JAVASCRIPT LOGIC & INTERACTION -->
+    <!-- JAVASCRIPT LOGIC -->
     <script>
-        // State & Data Default
-        let invitationData = {
+        // Default project dengan URL GAS Anda yang sudah tersemat otomatis
+        let currentProject = {
+            projectId: "proj_dimas_dewi",
             groom: "Raden Dimas Prayoga, S.T.",
             bride: "Nyai Roro Dewi Sekar Kencana, S.Pd.",
             date: "Minggu, 15 November 2026",
-            time: "08.00 WIB s.d. Selesai",
-            location: "Pendopo Agung Keraton",
-            address: "Jl. Pariwisata Budaya No. 1, Semarang, Jawa Tengah",
-            bank: "1234567890",
-            scriptUrl: ""
+            location: "Pendopo Agung Keraton, Semarang",
+            bank: "BCA: 1234567890 (a.n. Dimas)",
+            scriptUrl: "https://script.google.com/macros/s/AKfycbxFophoZEnXln6iNy76I072JcpklP2b0oTQzK3GtrLEW7BcAzMRlB3Q5vL_p33i0jmb/exec"
         };
 
-        // Load LocalStorage jika ada
-        if(localStorage.getItem('jawa_wayangan_data')) {
-            invitationData = JSON.parse(localStorage.getItem('jawa_wayangan_data'));
-            applyEditorDataToUI();
-        }
-
-        // Ambil parameter URL untuk nama tamu (misal ?to=Bapak+Budi)
+        // Cek Parameter URL ?id=...
         const urlParams = new URLSearchParams(window.location.search);
+        const urlProjectId = urlParams.get('id');
         const guestTo = urlParams.get('to');
+
         if(guestTo) {
             document.getElementById('guestBadge').innerText = decodeURIComponent(guestTo);
         }
 
-        // Buka Undangan & Play Music
+        if(urlProjectId) {
+            loadProjectFromCloud(urlProjectId);
+        } else if(localStorage.getItem('jawa_wayangan_current')) {
+            currentProject = JSON.parse(localStorage.getItem('jawa_wayangan_current'));
+            applyDataToUI();
+        } else {
+            applyDataToUI();
+        }
+
+        // Generate QR Code untuk Tamu
+        new QRCode(document.getElementById("qrcode"), {
+            text: window.location.href,
+            width: 110,
+            height: 110
+        });
+
         function openInvitation() {
             const cover = document.getElementById('coverSection');
             cover.style.transform = 'translateY(-100%)';
-            setTimeout(() => {
-                cover.style.display = 'none';
-            }, 700);
-
-            const content = document.getElementById('invitationContent');
-            content.classList.remove('opacity-0');
-
-            // Tampilkan floating control
+            setTimeout(() => cover.style.display = 'none', 700);
+            document.getElementById('invitationContent').classList.remove('opacity-0');
             document.getElementById('floatingControls').classList.remove('hidden');
-
-            // Play Music
-            const audio = document.getElementById('bgMusic');
-            audio.play().catch(e => console.log("Autoplay blocked by browser"));
+            document.getElementById('bgMusic').play().catch(e => console.log(e));
         }
 
-        // Music Toggle
-        let isPlaying = false;
         function toggleMusic() {
             const audio = document.getElementById('bgMusic');
             const icon = document.getElementById('musicIcon');
-            if(audio.paused) {
-                audio.play();
-                icon.className = "fa-solid fa-music text-lg animate-pulse text-palaceBlack";
-            } else {
-                audio.pause();
-                icon.className = "fa-solid fa-volume-xmark text-lg text-palaceBlack";
-            }
+            if(audio.paused) { audio.play(); icon.className = "fa-solid fa-music text-lg animate-pulse text-palaceBlack"; }
+            else { audio.pause(); icon.className = "fa-solid fa-volume-xmark text-lg text-palaceBlack"; }
         }
 
-        // Auto Scroll Toggle
-        let scrollInterval = null;
-        let isScrolling = false;
+        let isScrolling = false, scrollInterval = null;
         function toggleAutoScroll() {
-            const scrollIcon = document.getElementById('scrollIcon');
+            const icon = document.getElementById('scrollIcon');
             if(!isScrolling) {
                 isScrolling = true;
-                scrollIcon.className = "fa-solid fa-pause text-lg";
+                icon.className = "fa-solid fa-pause text-lg";
                 scrollInterval = setInterval(() => {
                     window.scrollBy({ top: 1, behavior: 'smooth' });
-                    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 10) {
-                        stopAutoScroll();
-                    }
+                    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 10) stopAutoScroll();
                 }, 30);
-            } else {
-                stopAutoScroll();
-            }
+            } else { stopAutoScroll(); }
         }
         function stopAutoScroll() {
             isScrolling = false;
@@ -571,127 +328,107 @@
         }
         window.addEventListener('wheel', () => { if(isScrolling) stopAutoScroll(); });
 
-        // Countdown Timer (Target: 15 Nov 2026)
-        const targetDate = new Date("November 15, 2026 08:00:00").getTime();
-        setInterval(() => {
-            const now = new Date().getTime();
-            const distance = targetDate - now;
-            if(distance > 0) {
-                document.getElementById('days').innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
-                document.getElementById('hours').innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                document.getElementById('minutes').innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                document.getElementById('seconds').innerText = Math.floor((distance % (1000 * 60)) / 1000);
+        function applyDataToUI() {
+            document.getElementById('coverNames').innerText = currentProject.groom.split(',')[0] + " & " + currentProject.bride.split(',')[0];
+            document.getElementById('mainTitleNames').innerText = currentProject.groom.split(',')[0] + " & " + currentProject.bride.split(',')[0];
+            document.getElementById('mainDateDisplay').innerText = currentProject.date;
+            document.getElementById('groomFullName').innerText = currentProject.groom;
+            document.getElementById('brideFullName').innerText = currentProject.bride;
+            document.getElementById('eventDateDisplay').innerText = currentProject.date;
+            document.getElementById('eventLocationDisplay').innerText = currentProject.location;
+            document.getElementById('bankDisplay').innerText = currentProject.bank;
+        }
+
+        function openEditorModal() {
+            document.getElementById('editProjectId').value = currentProject.projectId;
+            document.getElementById('editGroom').value = currentProject.groom;
+            document.getElementById('editBride').value = currentProject.bride;
+            document.getElementById('editDate').value = currentProject.date;
+            document.getElementById('editLocation').value = currentProject.location;
+            document.getElementById('editBank').value = currentProject.bank;
+            document.getElementById('editScriptUrl').value = currentProject.scriptUrl;
+            document.getElementById('editorModal').classList.remove('hidden');
+            document.getElementById('editorModal').classList.add('flex');
+        }
+
+        function closeEditorModal() {
+            document.getElementById('editorModal').classList.add('hidden');
+            document.getElementById('editorModal').classList.remove('flex');
+        }
+
+        function saveProjectToCloud() {
+            currentProject.projectId = document.getElementById('editProjectId').value || "proj_" + Date.now();
+            currentProject.groom = document.getElementById('editGroom').value;
+            currentProject.bride = document.getElementById('editBride').value;
+            currentProject.date = document.getElementById('editDate').value;
+            currentProject.location = document.getElementById('editLocation').value;
+            currentProject.bank = document.getElementById('editBank').value;
+            currentProject.scriptUrl = document.getElementById('editScriptUrl').value;
+
+            localStorage.setItem('jawa_wayangan_current', JSON.stringify(currentProject));
+            applyDataToUI();
+
+            if(currentProject.scriptUrl) {
+                fetch(currentProject.scriptUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'save_project', projectId: currentProject.projectId, config: currentProject })
+                }).then(() => alert("Proyek berhasil disimpan ke Cloud Google Sheets & LocalStorage!")).catch(() => alert("Gagal menyimpan ke cloud."));
+            } else {
+                alert("Proyek disimpan secara lokal.");
             }
-        }, 1000);
-
-        // Lightbox Functions
-        function openLightbox(el) {
-            const img = el.querySelector('img');
-            document.getElementById('lightboxImg').src = img.src;
-            document.getElementById('lightboxModal').classList.remove('hidden');
-            document.getElementById('lightboxModal').classList.add('flex');
-        }
-        function closeLightbox() {
-            document.getElementById('lightboxModal').classList.add('hidden');
-            document.getElementById('lightboxModal').classList.remove('flex');
+            closeEditorModal();
         }
 
-        // Copy Bank Account
-        function copyBankAccount() {
-            navigator.clipboard.writeText(invitationData.bank);
-            alert("Nomor rekening berhasil disalin: " + invitationData.bank);
+        function loadProjectFromCloud(id) {
+            if(currentProject.scriptUrl) {
+                fetch(`${currentProject.scriptUrl}?action=load_project&projectId=${id}`)
+                    .then(res => res.json())
+                    .then(res => {
+                        if(res.status === 'success') {
+                            currentProject = res.data;
+                            applyDataToUI();
+                        }
+                    })
+                    .catch(err => console.log("Gagal memuat dari cloud:", err));
+            }
         }
 
-        // Add to Calendar
-        function addToCalendar() {
-            const title = encodeURIComponent("Pernikahan " + invitationData.groom + " & " + invitationData.bride);
-            const details = encodeURIComponent("Pawiwahan Adat Jawa di " + invitationData.location);
-            const location = encodeURIComponent(invitationData.address);
-            window.open(`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&location=${location}&dates=20261115T010000Z/20261115T070000Z`, '_blank');
-        }
-
-        // RSVP Submit
         function submitRSVP(e) {
             e.preventDefault();
             const name = document.getElementById('rsvpName').value;
             const status = document.getElementById('rsvpStatus').value;
             const msg = document.getElementById('rsvpMessage').value;
 
-            // Tambah ke Buku Tamu Lokal
-            const list = document.getElementById('guestbookList');
-            const item = document.createElement('div');
-            item.className = "gebyok-border bg-palaceBlack p-4 rounded-xl space-y-1";
-            item.innerHTML = `<div class="flex justify-between items-center text-[10px] text-goldLight/70"><strong>${name} (${status})</strong><span>Baru saja</span></div><p class="text-xs text-parchment">${msg}</p>`;
-            list.prepend(item);
-
-            alert("Terima kasih, konfirmasi kehadiran dan doa Anda telah terkirim.");
+            alert("Terima kasih, konfirmasi kehadiran dan ucapan Anda telah tercatat.");
             document.getElementById('rsvpForm').reset();
 
-            // Kirim ke Google Apps Script jika URL tersedia
-            if(invitationData.scriptUrl) {
-                fetch(invitationData.scriptUrl, {
+            if(currentProject.scriptUrl) {
+                fetch(currentProject.scriptUrl, {
                     method: 'POST',
                     mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, status, msg })
-                }).catch(err => console.log(err));
+                    body: JSON.stringify({ action: 'submit_rsvp', projectId: currentProject.projectId, name, status, count: '1', msg })
+                });
+                fetch(currentProject.scriptUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'submit_guestbook', projectId: currentProject.projectId, sender: name, msg })
+                });
             }
         }
 
-        // Share WhatsApp
-        function shareInvitationWhatsApp() {
-            const text = `Assalamu’alaikum Warahmatullahi Wabarakatuh.\n\nDengan penuh rasa syukur, kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami, ${invitationData.groom} & ${invitationData.bride}.\n\nSilakan buka tautan undangan berikut:\n${window.location.href}\n\nMerupakan suatu kehormatan bagi kami apabila Anda berkenan hadir dan memberikan doa restu. Terima kasih.`;
+        function copyBankAccount() {
+            navigator.clipboard.writeText(currentProject.bank);
+            alert("Informasi tanda kasih berhasil disalin.");
+        }
+
+        function shareWhatsApp() {
+            const url = `${window.location.origin}${window.location.pathname}?id=${currentProject.projectId}`;
+            const text = `Assalamu’alaikum Warahmatullahi Wabarakatuh.\n\nKami mengundang Bapak/Ibu/Saudara/i untuk menghadiri pernikahan ${currentProject.groom} & ${currentProject.bride}.\n\nBuka tautan berikut:\n${url}\n\nTerima kasih atas doa restunya.`;
             window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
-        }
-
-        // Editor Modal Functions
-        function openEditorModal() {
-            document.getElementById('editGroom').value = invitationData.groom;
-            document.getElementById('editBride').value = invitationData.bride;
-            document.getElementById('editDate').value = invitationData.date;
-            document.getElementById('editTime').value = invitationData.time;
-            document.getElementById('editLocation').value = invitationData.location;
-            document.getElementById('editAddress').value = invitationData.address;
-            document.getElementById('editBank').value = invitationData.bank;
-            document.getElementById('editScriptUrl').value = invitationData.scriptUrl;
-
-            document.getElementById('editorModal').classList.remove('hidden');
-            document.getElementById('editorModal').classList.add('flex');
-        }
-        function closeEditorModal() {
-            document.getElementById('editorModal').classList.add('hidden');
-            document.getElementById('editorModal').classList.remove('flex');
-        }
-        function saveEditorData() {
-            invitationData.groom = document.getElementById('editGroom').value;
-            invitationData.bride = document.getElementById('editBride').value;
-            invitationData.date = document.getElementById('editDate').value;
-            invitationData.time = document.getElementById('editTime').value;
-            invitationData.location = document.getElementById('editLocation').value;
-            invitationData.address = document.getElementById('editAddress').value;
-            invitationData.bank = document.getElementById('editBank').value;
-            invitationData.scriptUrl = document.getElementById('editScriptUrl').value;
-
-            localStorage.setItem('jawa_wayangan_data', JSON.stringify(invitationData));
-            applyEditorDataToUI();
-            closeEditorModal();
-            alert("Data undangan berhasil diperbarui!");
-        }
-        function applyEditorDataToUI() {
-            document.getElementById('coverNames').innerText = invitationData.groom.split(',')[0] + " & " + invitationData.bride.split(',')[0];
-            document.getElementById('mainTitleNames').innerText = invitationData.groom.split(',')[0] + " & " + invitationData.bride.split(',')[0];
-            document.getElementById('mainDateDisplay').innerText = invitationData.date;
-            document.getElementById('groomFullName').innerText = invitationData.groom;
-            document.getElementById('brideFullName').innerText = invitationData.bride;
-            document.getElementById('akadDay').innerText = invitationData.date;
-            document.getElementById('akadTime').innerText = "Pukul " + invitationData.time;
-            document.getElementById('akadLocation').innerText = invitationData.location;
-            document.getElementById('akadAddress').innerText = invitationData.address;
-            document.getElementById('resepsiDay').innerText = invitationData.date;
-            document.getElementById('resepsiTime').innerText = "Pukul " + invitationData.time;
-            document.getElementById('resepsiLocation').innerText = invitationData.location;
-            document.getElementById('resepsiAddress').innerText = invitationData.address;
-            document.getElementById('bankAccNum').innerText = invitationData.bank;
         }
     </script>
 </body>
