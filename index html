@@ -7,9 +7,12 @@
     
     <!-- PWA & Mobile Meta Tags -->
     <link rel="manifest" href="./manifest.json">
+    <link rel="icon" type="image/png" href="Logoundanganwayang.png">
+    <link rel="apple-touch-icon" href="Logoundanganwayang.png">
     <meta name="theme-color" content="#11100E">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Wayangan Gold">
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -109,8 +112,9 @@
             </div>
 
             <div class="my-auto pt-16 pb-8 space-y-6 flex flex-col items-center">
-                <div class="w-16 h-20 gold-gradient-bg flex items-center justify-center rounded-t-full shadow-lg border border-goldLight animate-bounce">
-                    <i class="fa-solid fa-feather text-palaceBlack text-2xl"></i>
+                <!-- Logo Pintasan Menggunakan Logoundanganwayang.png -->
+                <div class="w-20 h-20 gold-gradient-bg p-1 rounded-2xl shadow-xl border border-goldLight flex items-center justify-center overflow-hidden">
+                    <img src="Logoundanganwayang.png" alt="Logo Wayang" class="w-full h-full object-cover rounded-xl">
                 </div>
 
                 <div>
@@ -120,7 +124,7 @@
 
                 <div class="w-48 h-56 gebyok-border rounded-2xl bg-charcoal flex flex-col items-center justify-center relative overflow-hidden shadow-2xl my-4">
                     <div class="absolute inset-0 bg-gradient-to-t from-palaceBlack via-transparent to-transparent opacity-80"></div>
-                    <i class="fa-solid fa-chess-queen text-goldPrimary text-6xl mb-2 relative z-10"></i>
+                    <img src="Logoundanganwayang.png" alt="Wayang" class="w-24 h-24 object-contain mb-2 relative z-10 filter drop-shadow-[0_0_8px_#D4AF62]">
                     <p id="coverNames" class="text-goldLight font-serif text-sm font-semibold tracking-wider relative z-10">Dimas & Dewi</p>
                     <span class="text-[10px] text-parchment/70 relative z-10">Pasangan Kekasih</span>
                 </div>
@@ -139,8 +143,9 @@
                 </button>
             </div>
 
-            <div class="text-[10px] text-goldLight/60 font-serif tracking-widest pb-2">
-                PAWIWAHAN AGUNG • JAWA WAYANGAN GOLD
+            <div class="text-[10px] text-goldLight/60 font-serif tracking-widest pb-2 flex flex-col items-center gap-0.5">
+                <span>PAWIWAHAN AGUNG • JAWA WAYANGAN GOLD</span>
+                <span class="text-[9px] text-goldLight/50">Powered by Ari GPM</span>
             </div>
         </section>
 
@@ -230,6 +235,7 @@
             <section class="py-14 px-6 text-center bg-palaceBlack text-parchment space-y-6">
                 <h3 class="font-serif font-bold text-xl gold-gradient-text">Matur Nuwun</h3>
                 <button onclick="shareWhatsApp()" class="w-full max-w-xs bg-emerald-600 text-white font-bold py-3 rounded-xl text-xs uppercase">Bagikan Undangan</button>
+                <div class="text-[10px] text-goldLight/50 pt-2">Powered by Ari GPM</div>
             </section>
 
         </div>
@@ -257,7 +263,6 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        // Default project dengan URL GAS Anda yang sudah tersemat otomatis
         let currentProject = {
             projectId: "proj_dimas_dewi",
             groom: "Raden Dimas Prayoga, S.T.",
@@ -268,7 +273,6 @@
             scriptUrl: "https://script.google.com/macros/s/AKfycbxFophoZEnXln6iNy76I072JcpklP2b0oTQzK3GtrLEW7BcAzMRlB3Q5vL_p33i0jmb/exec"
         };
 
-        // Cek Parameter URL ?id=...
         const urlParams = new URLSearchParams(window.location.search);
         const urlProjectId = urlParams.get('id');
         const guestTo = urlParams.get('to');
@@ -286,7 +290,6 @@
             applyDataToUI();
         }
 
-        // Generate QR Code untuk Tamu
         new QRCode(document.getElementById("qrcode"), {
             text: window.location.href,
             width: 110,
